@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags static %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#about">
+        <span class="d-block d-lg-none">William Blackie</span>
+        <span class="d-none d-lg-block">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{% static 'img/profile.jpeg' %}" alt="">
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#education">Education</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#LanguagesAndTools">Languages and Tools</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#interests">Interests</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+    <div class="my-auto">
+        <h1 class="mb-0">William
+            <span class="text-primary">Blackie</span>
+        </h1>
+        <div class="subheading mb-5">Bristol, UK ·
+            <a href="mailto:contact@williamblackie.com">contact@williamblackie.com</a>
+        </div>
+        <p class="mb-5">{{ page.intro|richtext }}</p>
+        <ul class="list-inline list-social-icons mb-0">
+            <li class="list-inline-item">
+            <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/william-blackie/">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="https://github.com/William-Blackie">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
+    <div class="my-auto">
+        <h2 class="mb-5">Work Experience</h2>
+
+        {% for item in page.work_experience.all %}
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">{{ item.job_title }}</h3>
+                    <div class="subheading mb-3">{{ item.company_title }}</div>
+                    <div>{{ item.job_description|richtext }}</div>
+                </div>
+                <div class="resume-date text-md-right">
+                    <span class="text-primary">{{ item.job_date }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
+    <div class="my-auto">
+        <h2 class="mb-5">Education</h2>
+        {% for item in page.education.all %}
+
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">{{ item.education_provider }}</h3>
+                    <div class="subheading mb-3">{{ item.course_level }}</div>
+                    {{ item.course_description|richtext }}
+                </div>
+                <div class="resume-date text-md-right">
+                    <span class="text-primary">{{ item.course_date }}<br>{{ item.course_results }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="awards">
+    <div class="my-auto">
+        <h2 class="mb-5">Awards</h2>
+        {% for item in page.awards.all %}
+
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">{{ item.award_name }}</h3>
+                    <div class="subheading mb-3">{{ item.awarded_by|richtext }}</div>
+                </div>
+                <div class="resume-date text-md-right">
+                    <span class="text-primary">{{ item.award_date }}</span>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</section>
+
+<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="LanguagesAndTools">
+    <div class="my-auto">
+        <h2 class="mb-5">Langauges and Tools</h2>
+        <div class="resume-item d-flex flex-column flex-md-row">
+            <div class="resume-content mr-auto">
+                {% for item in page.languages_and_tools.all %}
+
+                    <h3 class="mb-0">{{ item.language }}</h3>
+                    <div class="subheading mb-3">{{ item.tools|richtext }}</div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="resume-section p-3 p-lg-5 d-flex-column" id="projects">
+    <div class="my-auto">
+        <h2 class="mb-5">Projects</h2>
+        {% for project in page.project.all %}
+        <div class="subheading mb-3">{{ project.project_group_title }}</div>
+        <ul class="list-inline">
+            {% for project_member in project.project_members.all %}
+                <li class="list-inline-item">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project_member.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ project_member.languages_and_frameworks|richtext }}</h6>
+                            <p class="card-text">{{ project_member.description|richtext }}</p>
+                            <a href={{ project_member.url }}
+                               class="card-link">Source</a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+
+</section>
+
+<section class="resume-section p-3 p-lg-5 d-flex flex-column" id="interests">
+    <div class="my-auto">
+        <h2 class="mb-5">Interests</h2>
+        {{ page.interests|richtext }}
+    </div>
+</section>
+
+{% endblock content %}
+
