@@ -17,6 +17,9 @@ COPY . /code/
 # Set the working directory to /code/
 WORKDIR /code/
 
+ARG wagtail_blog_secret_key
+RUN export wagtail_blog_secret_key=$wagtail_blog_secret_key
+
 RUN python manage.py migrate
 
 RUN useradd wagtail
