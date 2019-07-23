@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    container_name: wagtail_portfolio
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput --clear && gunicorn wagtail_portfolio.wsgi:application -b 0.0.0.0:8000"
+    volumes:
+      - .:/code/
+      - static_volume:/code/wagtail_portfolio/static/   # <-- bind the static volume
+      - media_volume:/code/wagtail_portfolio/media/  # <-- bind the media volume
+    networks:
+      - nginx_network
+    restart: always
+    expose:
+      - 8000
+
+  nginx:
+    image: nginx:stable
+    container_name: nginx_server
+    ports:
+      - 1337:80
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/code/wagtail_portfolio/static/  # <-- bind the static volume
+      - media_volume:/code/wagtail_portfolio/media/  # <-- bind the media volume
+    depends_on:
+       - web
+    networks:
+      - nginx_network
+    restart: always
+
+networks:
+  nginx_network:
+    driver: bridge
+
+volumes:
+  static_volume:  # <-- declare the static volume
+  media_volume:  # <-- declare the media volume
