@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker build -t $IMAGE_NAME . --build-arg wagtail_blog_secret_key=$wagtail_blog_secret_key

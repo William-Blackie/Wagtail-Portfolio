@@ -6,25 +6,17 @@ LABEL maintainer="contact@williamblackie.com"
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
 
-COPY ./requirements.txt /code/requirements.txt
-RUN pip install --upgrade pip
-# Install any needed packages specified in requirements.txt
-RUN pip install -r /code/requirements.txt
-RUN pip install gunicorn
-
 # Copy the current directory contents into the container at /code/
 COPY . /code/
-# Set the working directory to /code/
-WORKDIR /code/
+# Set the working directory to /code/Wagtail-Blog
+WORKDIR /code
+RUN ls -al
 
-ARG wagtail_blog_secret_key
-RUN export wagtail_blog_secret_key=$wagtail_blog_secret_key
+RUN pip install --upgrade pip
 
-RUN python manage.py migrate
+# Install any needed packages specified in requirements.txt
+RUN pip install -r config/requirements.txt
+RUN pip install gunicorn
+RUN ls -al
 
-RUN useradd wagtail
-RUN chown -R wagtail /code
-USER wagtail
-
-EXPOSE 8000
-CMD exec gunicorn wagtail_portfolio.wsgi:application --bind 0.0.0.0:8000 --workers 3
+WORKDIR /code/wagtail_portfolio
