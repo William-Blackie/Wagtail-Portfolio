@@ -14,8 +14,8 @@ services:
     networks:
       - nginx_network
     restart: always
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
 
   nginx:
     image: nginx:stable
