@@ -1,75 +1,25 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="/#about">
-        <span class="d-block d-lg-none">William Blackie</span>
-        <span class="d-none d-lg-block">
-      </span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#experience">Experience</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#education">Education</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#awards">Awards</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#LanguagesAndTools">Languages and Tools</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#projects">Projects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/#interests">Interests</a>
-            </li>
-            <li class="dropdown-divider"></li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/blog">Blog</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-
-<section class="resume-section p-3 p-lg-5 d-flex d-column" href="/blog">
+<section class="resume-section p-3 p-lg-5" id="about">
     <div class="my-auto">
         <h1 class="mb-0">{{ page.title }}</h1>
         <div class="intro">{{ page.description }}</div>
+        <li class="dropdown-divider"></li>
 
-    </div>
-</section>
 
-<section class="resume-section p-3 p-lg-5 d-flex d-column" href="/blog">
-    <div class="my-auto">
-        <h1 class="mb-0">Articles</h1>
-        <div class="intro">{{ page.description }}</div>
+        <h2 class="mb-0">Posts</h2>
         {% for blog_post in page.get_children.specific %}
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <div class="card" style="width: max-content;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ blog_post.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ blog_post.created_date }}</h6>
-                        <p class="card-text">{{ blog_post.description|richtext }}</p>
-                        <a href={% pageurl blog_post %}
-                           class="card-link">Read</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <div class="card-body">
+            <h5 class="card-title">{{ blog_post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Created: {{blog_post.created_date}} | Revised:
+                {{blog_post.revision_date}}</h6>
+            <p class="card-text">{{ blog_post.description|richtext }}</p>
+            <a href={% pageurl blog_post %}
+               class="card-link">Read</a>
+        </div>
+
         {% endfor %}
     </div>
 </section>
