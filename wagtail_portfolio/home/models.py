@@ -4,14 +4,18 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class HomePage(Page):
     introduction = RichTextField(blank=True)
     interests = RichTextField(blank=True)
-
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.SET_NULL, null=True, related_name='+'
+    )
     content_panels = Page.content_panels + [
         FieldPanel('introduction', classname="full"),
+        ImageChooserPanel('image'),
         InlinePanel('work_experience', label='Work Experience'),
         InlinePanel('education', label='Education'),
         InlinePanel('awards', label='Awards'),

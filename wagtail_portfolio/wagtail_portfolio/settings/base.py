@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wagtail.contrib.settings.context_processors.settings',
             ],
         },
     },
@@ -114,13 +115,46 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Logging for server
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'wagtail_portfolio': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'GMT'
 
 USE_I18N = True
 
@@ -140,6 +174,7 @@ STATICFILES_FINDERS = [
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(PROJECT_DIR, 'media'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -148,7 +183,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated

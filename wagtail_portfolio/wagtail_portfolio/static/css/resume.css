@@ -152,3 +152,14 @@ a {
 a:hover, a:focus, a:active {
     color: #333f50;
 }
+.responsive-object {
+    position: relative;
+}
+.responsive-object iframe,
+.responsive-object object {
+    position: absolute;
+    margin: 10px;
+    width: 90%;
+    height: 90%;
+}
+
