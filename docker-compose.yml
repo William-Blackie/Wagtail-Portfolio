@@ -46,8 +46,4 @@ networks:
 
 volumes:
   static_volume:  # <-- declare the static volume
-<<<<<<< HEAD
   media_volume:  # <-- declare the media volume
-=======
-  media_volume:  # <-- declare the media volume
->>>>>>> 96b25ac... Refactor for AWS S3 CDN, static & media files.
