@@ -1,11 +1,19 @@
 version: '3.3'
 
 services:
-  web:
+  wagtail_portfolio:
     build: .
     container_name: wagtail_portfolio
     environment:
       - SECRET_KEY=${SECRET_KEY}
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_PSWD=${DB_PSWD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - AWS_S3_ACCESS_KEY_ID=${AWS_S3_ACCESS_KEY_ID}
+      - AWS_S3_SECRET_ACCESS_KEY=${AWS_S3_SECRET_ACCESS_KEY}
+      - AWS_S3_STORAGE_BUCKET_NAME=${AWS_S3_STORAGE_BUCKET_NAME}
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput --clear && gunicorn wagtail_portfolio.wsgi:application -b 0.0.0.0:8000"
     volumes:
       - .:/code/
@@ -27,7 +35,7 @@ services:
       - static_volume:/code/wagtail_portfolio/static/  # <-- bind the static volume
       - media_volume:/code/wagtail_portfolio/media/  # <-- bind the media volume
     depends_on:
-       - web
+       - wagtail_portfolio
     networks:
       - nginx_network
     restart: always
@@ -38,4 +46,8 @@ networks:
 
 volumes:
   static_volume:  # <-- declare the static volume
+<<<<<<< HEAD
   media_volume:  # <-- declare the media volume
+=======
+  media_volume:  # <-- declare the media volume
+>>>>>>> 96b25ac... Refactor for AWS S3 CDN, static & media files.

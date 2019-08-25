@@ -96,7 +96,7 @@ class ProjectMember(models.Model):
     ]
 
 
-class Project(ClusterableModel):
+class Project(ClusterableModel, Orderable):
     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='project', default=1)
     project_group_title = models.CharField(max_length=255, blank=True, default=" ")
     project_member = ParentalManyToManyField(ProjectMember, related_name='project_member', blank=True)
