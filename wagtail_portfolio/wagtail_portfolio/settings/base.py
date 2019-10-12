@@ -15,7 +15,7 @@ import os
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
-
+env = os.environ.copy()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoprojedjango.core.exceptions.AppRegistryNotReady:ct.com/en/2.2/howto/deployment/checklist/
 
@@ -92,10 +92,15 @@ WSGI_APPLICATION = 'wagtail_portfolio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env.get('DB_NAME', ''),
+        'USER': env.get('DB_USER', ''),
+        'PASSWORD': env.get('DB_PSWD', ''),
+        'HOST': env.get('DB_HOST', ''),
+        'PORT': env.get('DB_PORT', ''),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
