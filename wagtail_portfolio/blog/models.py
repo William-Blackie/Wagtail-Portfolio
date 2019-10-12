@@ -6,14 +6,14 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 
 
-class BlogPage(Page):
+class BlogIndexPage(Page):
     description = models.CharField(max_length=255, blank=True,)
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full")
     ]
 
 
-class PostPage(Page):
+class BlogPage(Page):
     body = RichTextField(blank=True)
     description = RichTextField(blank=True)
     created_date = models.DateField("Post date", null=True)
