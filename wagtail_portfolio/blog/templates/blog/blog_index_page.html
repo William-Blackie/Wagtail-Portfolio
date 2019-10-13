@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+<section class="resume-section p-3 p-lg-5" id="about">
+    <div class="my-auto">
+        <h1 class="mb-0">{{ page.title }}</h1>
+        <div class="intro">{{ page.description }}</div>
+        <li class="dropdown-divider"></li>
+
+
+        <h2 class="mb-0">Posts</h2>
+        {% for blog in blog_posts %}
+        <div class="card-body">
+            <h5 class="card-title">{{ blog.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Created: {{blog.created_date}} | Revised:
+                {{blog_post.revision_date}}</h6>
+            <p class="card-text">{{ blog.description }}</p>
+            <a href={% pageurl blog %}
+               class="card-link">Read</a>
+        </div>
+
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock %}

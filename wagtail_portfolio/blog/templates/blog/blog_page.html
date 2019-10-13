@@ -1,28 +1,19 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}
 {% block content %}
 
-<section class="resume-section p-3 p-lg-5" id="about">
+<section class="resume-section p-3 p-lg-5 d-flex flex-column">
     <div class="my-auto">
-        <h1 class="mb-0">{{ page.title }}</h1>
-        <div class="intro">{{ page.description }}</div>
-        <li class="dropdown-divider"></li>
+        <h2 class="mb-5">{{ page.title }}</h2>
 
-
-        <h2 class="mb-0">Posts</h2>
-        {% for blog_post in page.get_children.specific %}
-        <div class="card-body">
-            <h5 class="card-title">{{ blog_post.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Created: {{blog_post.created_date}} | Revised:
-                {{blog_post.revision_date}}</h6>
-            <p class="card-text">{{ blog_post.description|richtext }}</p>
-            <a href={% pageurl blog_post %}
-               class="card-link">Read</a>
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+                {% include_block page.body %}
+                <h5>Created: {{page.created_date}} | Revised: {{page.revision_date}}</h5>
+            </div>
         </div>
-
-        {% endfor %}
+        <h4><a href="{{ page.get_parent.url }}">Return to blog</a></h4>
     </div>
 </section>
-
 
 {% endblock %}
