@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'home',
     'blog',
 
+    'wagtail.contrib.modeladmin',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
