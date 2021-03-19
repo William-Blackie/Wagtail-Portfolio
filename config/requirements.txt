@@ -14,7 +14,7 @@ django-modelcluster==4.4
 django-storages==1.7.1
 django-taggit==0.24.0
 django-treebeard==4.3
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 docker==4.0.2
 docker-pycreds==0.4.0
 dockerpty==0.4.1
