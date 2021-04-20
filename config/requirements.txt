@@ -41,7 +41,7 @@ sqlparse==0.3.0
 texttable==0.9.1
 Unidecode==1.1.1
 urllib3==1.24.3
-wagtail==2.5.1
+wagtail==2.11.6
 webencodings==0.5.1
 websocket-client==0.56.0
 Willow==1.1
